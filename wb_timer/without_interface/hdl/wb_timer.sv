@@ -90,6 +90,7 @@ module wb_timer #(
 
   always_comb begin
     next_state = current_state;
+    aux = (wb_adr_i / OFFSET_ADDR) - 1;
     wb_err_o = 0;
     wb_ack_o = 0;
     r_data_w = 0;
