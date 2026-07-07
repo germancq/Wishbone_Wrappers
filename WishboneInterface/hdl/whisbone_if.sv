@@ -72,4 +72,4 @@ interface whisbone_if #(
       output wb_rdt, wb_ack
   );
 
-endinterface : whisbone_if
+endinterface
