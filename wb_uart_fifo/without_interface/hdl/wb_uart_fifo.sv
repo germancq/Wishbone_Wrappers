@@ -117,8 +117,6 @@ module wb_uart_fifo #(
       .rx_active(rx_active),
       .tx_active(tx_active),
       .read_byte(read_byte),
-      .estado_tx(estado_tx),
-      .estado_rx(estado_rx),
       .debug_pop_tx(debug_pop_tx),
       .debug_data_tx(debug_data_tx),
       .debug_byte_rx(debug_byte_rx)
