@@ -13,30 +13,30 @@ module block_cipher_wb_bridge #(
     parameter WB_DATA_WIDTH = 32,
     parameter OFFSET_ADDR = 1
 ) (
-    input                                 wb_clk,
-    input                                 wb_rst,
+    input                                  wb_clk,
+    input                                  wb_rst,
     //wishbone interface
-    input        [ $clog2(WB_ADDR_DIR):0] wb_adr_i,
-    input        [     WB_DATA_WIDTH-1:0] wb_dat_i,
-    input                                 wb_we_i,
-    input                                 wb_cyc_i,
-    input                                 wb_stb_i,
-    input        [(WB_DATA_WIDTH>>3)-1:0] wb_sel_i,
-    input        [                   2:0] wb_cti_i,
-    input        [                   1:0] wb_bte_i,
-    output logic                          wb_ack_o,
-    output logic                          wb_err_o,
-    output                                wb_rty_o,
-    output       [     WB_DATA_WIDTH-1:0] wb_dat_o,
+    input        [$clog2(WB_ADDR_DIR)-1:0] wb_adr_i,
+    input        [      WB_DATA_WIDTH-1:0] wb_dat_i,
+    input                                  wb_we_i,
+    input                                  wb_cyc_i,
+    input                                  wb_stb_i,
+    input        [ (WB_DATA_WIDTH>>3)-1:0] wb_sel_i,
+    input        [                    2:0] wb_cti_i,
+    input        [                    1:0] wb_bte_i,
+    output logic                           wb_ack_o,
+    output logic                           wb_err_o,
+    output                                 wb_rty_o,
+    output       [      WB_DATA_WIDTH-1:0] wb_dat_o,
     //block_cipher interface
-    output logic                          cipher_rst,
-    output       [           KEY_LEN-1:0] cipher_key,
-    input                                 cipher_end_key_generation,
-    output       [           BLK_LEN-1:0] cipher_blk_i,
-    input        [           BLK_LEN-1:0] cipher_blk_o,
-    output logic                          cipher_enc_dec,
-    output logic                          cipher_rq_data,
-    input                                 cipher_end_signal
+    output logic                           cipher_rst,
+    output       [            KEY_LEN-1:0] cipher_key,
+    input                                  cipher_end_key_generation,
+    output       [            BLK_LEN-1:0] cipher_blk_i,
+    input        [            BLK_LEN-1:0] cipher_blk_o,
+    output logic                           cipher_enc_dec,
+    output logic                           cipher_rq_data,
+    input                                  cipher_end_signal
 );
 
   //we use 256 bit pass at max and 128 bit block at max
@@ -71,7 +71,7 @@ module block_cipher_wb_bridge #(
 
   logic [WB_DATA_WIDTH-1:0] bank_register[5:0];
   generate
-    for (i = 0; i < 64; i = i + 1) begin
+    for (i = 0; i < 32; i = i + 1) begin
       register #(
           .DATA_WIDTH(WB_DATA_WIDTH)
       ) r_banks (
@@ -87,7 +87,7 @@ module block_cipher_wb_bridge #(
 
   generate
     for (i = 0; i < (KEY_LEN / WB_DATA_WIDTH); i = i + 1) begin
-      assign cipher_key[(WB_DATA_WIDTH)+(i*WB_DATA_WIDTH)-1:(i*WB_DATA_WIDTH)] = bank_register[i];
+      assign cipher_key[(WB_DATA_WIDTH)+(i*WB_DATA_WIDTH)-1:(i*WB_DATA_WIDTH)] = 0;//bank_register[i];
     end
   endgenerate
 
