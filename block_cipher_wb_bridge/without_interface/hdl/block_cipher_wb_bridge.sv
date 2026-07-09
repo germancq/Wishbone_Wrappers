@@ -69,9 +69,9 @@ module block_cipher_wb_bridge #(
 
   assign wb_rty_o = 1;
 
-  logic [WB_DATA_WIDTH-1:0] bank_register[$clog2(WB_ADDR_DIR)-1:0];
+  logic [WB_DATA_WIDTH-1:0] bank_register[4:0];
   generate
-    for (i = 0; i < $clog2(WB_ADDR_DIR); i = i + 1) begin
+    for (i = 0; i < 18; i = i + 1) begin
       register #(
           .DATA_WIDTH(WB_DATA_WIDTH)
       ) r_banks (
