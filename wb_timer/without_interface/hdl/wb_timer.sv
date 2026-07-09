@@ -48,12 +48,12 @@ module wb_timer #(
   //N and WB_DATA_WIDTH must be power of 2
   localparam NUM_GETS = N / WB_DATA_WIDTH;
 
-  logic [WB_DATA_WIDTH-1:0] bank_register[WB_ADDR_DIR-1:0];
+  logic [WB_DATA_WIDTH-1:0] bank_register[$clog2(NUM_GETS)+1:0];
 
   genvar i;
   //register data from wishbone bus
   generate
-    for (i = 0; i < (WB_ADDR_DIR); i = i + 1) begin
+    for (i = 0; i < NUM_GETS + 1; i = i + 1) begin
       register #(
           .DATA_WIDTH(WB_DATA_WIDTH)
       ) r_banks (
