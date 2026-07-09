@@ -127,7 +127,7 @@ module block_cipher_wb_bridge #(
     wb_ack_o = 0;
 
     r_data_w = 0;
-    wb_data = bank_register[wb_adr_i/OFFSET_ADDR];  //cipher_blk_o;
+    wb_data = cipher_blk_o;
 
     cipher_rst = 0;
     cipher_enc_dec = 0;
