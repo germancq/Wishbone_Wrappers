@@ -93,7 +93,7 @@ module block_cipher_wb_bridge #(
 
   generate
     for (i = 0; i < (BLK_LEN / WB_DATA_WIDTH); i = i + 1) begin
-      assign cipher_blk_i[(WB_DATA_WIDTH)+(i*WB_DATA_WIDTH)-1:(i*WB_DATA_WIDTH)] = bank_register[8+i];
+      assign cipher_blk_i[(WB_DATA_WIDTH)+(i*WB_DATA_WIDTH)-1:(i*WB_DATA_WIDTH)] = 0;//bank_register[8+i];
     end
   endgenerate
 
