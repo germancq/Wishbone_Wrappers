@@ -53,7 +53,7 @@ module uart_fifo_wb_bridge #(
   //cte values
   assign wb_rty_o = 0;
 
-  logic [WB_DATA_WIDTH-1:0] bank_register[1:0];
+  logic [WB_DATA_WIDTH-1:0] bank_register[3:0];
 
   genvar i;
   //register data from wishbone bus

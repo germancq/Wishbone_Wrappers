@@ -45,7 +45,7 @@ module uart_wrapper #(
 
   genvar i;
   //banco de registros desde el bus wishbone
-  logic [WB_DATA_WIDTH-1:0] bank_register[1:0];
+  logic [WB_DATA_WIDTH-1:0] bank_register[3:0];
   generate
     for (i = 0; i < 3; i = i + 1) begin
       register #(
