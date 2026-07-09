@@ -59,7 +59,7 @@ module wb_timer #(
       ) r_banks (
           .clk(wb_clk),
           .cl(wb_rst),
-          .w(wb_adr_i == i ? (wb_stb_i & wb_we_i & wb_cyc_i) : 0),
+          .w(wb_adr_i == (i * OFFSET_ADDR) ? (wb_stb_i & wb_we_i & wb_cyc_i) : 0),
           .din(wb_dat_i),
           .dout(bank_register[i])
       );
