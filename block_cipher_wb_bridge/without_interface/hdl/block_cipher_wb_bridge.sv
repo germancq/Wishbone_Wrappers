@@ -71,7 +71,7 @@ module block_cipher_wb_bridge #(
 
   logic [WB_DATA_WIDTH-1:0] bank_register[4:0];
   generate
-    for (i = 0; i < 18; i = i + 1) begin
+    for (i = 0; i < 32; i = i + 1) begin
       register #(
           .DATA_WIDTH(WB_DATA_WIDTH)
       ) r_banks (
