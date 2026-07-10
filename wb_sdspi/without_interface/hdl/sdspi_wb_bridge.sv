@@ -55,12 +55,12 @@ module sdspi_wb_bridge #(
   assign wb_rty_o = 1;
   assign wb_err_o = sdspi_err;
 
-  logic [WB_DATA_WIDTH-1:0] bank_register[WB_ADDR_DIR-1:0];
+  logic [WB_DATA_WIDTH-1:0] bank_register[7:0];
 
   genvar i;
   //register data from wishbone bus
   generate
-    for (i = 0; i < (WB_ADDR_DIR); i = i + 1) begin
+    for (i = 0; i < 8; i = i + 1) begin
       register #(
           .DATA_WIDTH(WB_DATA_WIDTH)
       ) r_banks (
@@ -75,9 +75,9 @@ module sdspi_wb_bridge #(
 
 
 
-  assign sdspi_block_addr = bank_register[SET_ADDRESS];
-  assign sdspi_data_in = bank_register[WRITE_BYTE];
-  assign sdspi_sclk_speed = bank_register[SET_SPEED];
+  assign sdspi_block_addr = bank_register[SET_ADDRESS/OFFSET_ADDR];
+  assign sdspi_data_in = bank_register[WRITE_BYTE/OFFSET_ADDR];
+  assign sdspi_sclk_speed = bank_register[SET_SPEED/OFFSET_ADDR];
 
 
   logic r_data_w;
