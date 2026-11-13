@@ -112,11 +112,14 @@ module wb_timer #(
       end
       RST_TIMER_OP_0: begin
         counter_rst = 1;
-        next_state  = END_OP;
+        wb_ack_o = 1;
+        if (wb_stb_i == 0) begin
+          next_state = IDLE;
+        end
       end
       GET_TIMER_OP_0: begin
         aux = (wb_adr_i / OFFSET_ADDR) - 1;
-        wb_data = counter_dout[31:0];  //counter_dout >> (aux * WB_DATA_WIDTH);
+        wb_data = counter_dout >> (aux * WB_DATA_WIDTH);
         r_data_w = 1;
         next_state = END_OP;
       end
