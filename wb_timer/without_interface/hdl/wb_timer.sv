@@ -118,8 +118,9 @@ module wb_timer #(
         end
       end
       GET_TIMER_OP_0: begin
-        aux = 32'hAA;  //(wb_adr_i / OFFSET_ADDR) - 1;
-        wb_data = counter_dout >> (aux * WB_DATA_WIDTH);
+        aux = (wb_adr_i / OFFSET_ADDR) - 1;
+        //wb_data = counter_dout >> (aux * WB_DATA_WIDTH);
+        wb_data = (64'hAA) >> (aux * WB_DATA_WIDTH);
         r_data_w = 1;
         next_state = END_OP;
       end
