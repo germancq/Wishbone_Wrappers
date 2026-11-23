@@ -31,13 +31,12 @@ module wb_timer #(
 
   logic counter_rst;
   logic [N-1:0] counter_dout;
-  logic up;
   counter #(
       .DATA_WIDTH(N)
   ) timer (
       .clk (wb_clk),
-      .rst (counter_rst),
-      .up  (up),
+      .rst (counter_rst | wb_rst),
+      .up  (1'b1),
       .down(1'b0),
       .din (0),
       .dout(counter_dout)
@@ -97,7 +96,6 @@ module wb_timer #(
     r_data_w = 0;
     counter_rst = 0;
     wb_data = counter_dout[WB_DATA_WIDTH-1:0];
-    up = 0;
 
     case (current_state)
       START_STATE: begin
@@ -123,11 +121,7 @@ module wb_timer #(
         aux = (wb_adr_i / OFFSET_ADDR) - 1;
         wb_data = counter_dout >> (aux * WB_DATA_WIDTH);
         r_data_w = 1;
-        up = 1;
-        wb_ack_o = 1;
-        if (wb_stb_i == 0) begin
-          next_state = IDLE;
-        end
+        next_state = END_OP;
       end
       END_OP: begin
         wb_ack_o = 1;
