@@ -7,28 +7,26 @@
  */
 
 module wb_mem #(
-    parameter WB_ADDR_DIR = 2,
     parameter WB_DATA_WIDTH = 32,
-    parameter OFFSET_ADDR = 1,
     parameter WIDTH_MEM = 32,
     parameter ADDR_MEM = 1024,
     parameter FILE_MEM = "memory.mem"
 ) (
-    input                                  wb_clk,
-    input                                  wb_rst,
+    input                                 wb_clk,
+    input                                 wb_rst,
     //wishbone interface
-    input        [$clog2(WB_ADDR_DIR)-1:0] wb_adr_i,
-    input        [      WB_DATA_WIDTH-1:0] wb_dat_i,
-    input                                  wb_we_i,
-    input                                  wb_cyc_i,
-    input                                  wb_stb_i,
-    input        [ (WB_DATA_WIDTH>>3)-1:0] wb_sel_i,
-    input        [                    2:0] wb_cti_i,
-    input        [                    1:0] wb_bte_i,
-    output logic                           wb_ack_o,
-    output logic                           wb_err_o,
-    output                                 wb_rty_o,
-    output       [      WB_DATA_WIDTH-1:0] wb_dat_o
+    input        [          ADDR_MEM-1:0] wb_adr_i,
+    input        [     WB_DATA_WIDTH-1:0] wb_dat_i,
+    input                                 wb_we_i,
+    input                                 wb_cyc_i,
+    input                                 wb_stb_i,
+    input        [(WB_DATA_WIDTH>>3)-1:0] wb_sel_i,
+    input        [                   2:0] wb_cti_i,
+    input        [                   1:0] wb_bte_i,
+    output logic                          wb_ack_o,
+    output logic                          wb_err_o,
+    output                                wb_rty_o,
+    output       [     WB_DATA_WIDTH-1:0] wb_dat_o
 );
 
   mod_memory_module #(
