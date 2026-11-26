@@ -7,7 +7,7 @@
  */
 
 module wb_gpio #(
-    parameter WB_ADDR_DIR = 2,
+    parameter WB_ADDR_DIR = 8,
     parameter WB_DATA_WIDTH = 32,
     parameter OFFSET_ADDR = 1,
     parameter N = 16
