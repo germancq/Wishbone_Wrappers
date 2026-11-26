@@ -37,7 +37,7 @@ module wb_mem #(
       .clk(wb_clk),
       .we(wb_we_i & wb_stb_i & wb_cyc_i),
       .sel(wb_sel_i),
-      .addr(wb_adr_i[$clog2(ADDR_MEM)+1:2]),
+      .addr(wb_adr_i[$clog2(ADDR_MEM)-1:2]),
       .din(wb_dat_i),
       .dout(wb_dat_o),
       .reset_values(wb_rst)
