@@ -80,8 +80,14 @@ module wb_gpio #(
       IDLE: begin
         if (wb_stb_i & wb_cyc_i) begin
           case (wb_adr_i)
-            WRITE_GPIO: next_state = END_OP;
+            WRITE_GPIO: begin
+              next_state = END_OP;
+            end
             READ_GPIO: begin
+              r_data_w   = 1;
+              next_state = END_OP;
+            end
+            default: begin
               r_data_w   = 1;
               next_state = END_OP;
             end
