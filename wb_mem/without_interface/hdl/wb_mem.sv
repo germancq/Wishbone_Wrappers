@@ -15,7 +15,7 @@ module wb_mem #(
     input                                 wb_clk,
     input                                 wb_rst,
     //wishbone interface
-    input        [          ADDR_MEM-1:0] wb_adr_i,
+    input        [  $clog2(ADDR_MEM)-1:0] wb_adr_i,
     input        [     WB_DATA_WIDTH-1:0] wb_dat_i,
     input                                 wb_we_i,
     input                                 wb_cyc_i,
@@ -31,7 +31,7 @@ module wb_mem #(
 
   mod_memory_module #(
       .DATA_WIDTH(WIDTH_MEM),
-      .ADDR(ADDR_MEM),
+      .ADDR($clog2(ADDR_MEM)),
       .FILE_MEM(FILE_MEM)
   ) mem_inst (
       .clk(wb_clk),
