@@ -48,8 +48,9 @@ module wb_mem #(
 
   localparam IDLE = 0;
   localparam END_OP = 1;
+  localparam WAIT = 2;
 
-  logic [0:0] current_state, next_state;
+  logic [1:0] current_state, next_state;
 
   always_comb begin
     next_state = current_state;
@@ -59,8 +60,11 @@ module wb_mem #(
     case (current_state)
       IDLE: begin
         if (wb_stb_i & wb_cyc_i) begin
-          next_state = END_OP;
+          next_state = WAIT;
         end
+      end
+      WAIT: begin
+        next_state = END_OP;  //WAIT for stable data from mem
       end
       END_OP: begin
         wb_ack_o = 1;

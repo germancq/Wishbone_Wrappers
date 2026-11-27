@@ -36,21 +36,15 @@ module wb_gpio #(
   localparam READ_GPIO = 0;
   localparam WRITE_GPIO = 1 * OFFSET_ADDR;
 
-  genvar i;
-  //register data from wishbone bus
-  generate
-    for (i = 0; i < 1; i = i + 1) begin
-      register #(
-          .DATA_WIDTH(WB_DATA_WIDTH)
-      ) r_banks (
-          .clk(wb_clk),
-          .cl(wb_rst),
-          .w(wb_adr_i == (i * OFFSET_ADDR) ? (wb_stb_i & wb_we_i & wb_cyc_i) : 0),
-          .din(wb_dat_i),
-          .dout(gpio_out)
-      );
-    end
-  endgenerate
+  register #(
+      .DATA_WIDTH(WB_DATA_WIDTH)
+  ) r_banks (
+      .clk(wb_clk),
+      .cl(wb_rst),
+      .w(wb_adr_i == WRITE_GPIO ? (wb_stb_i & wb_we_i & wb_cyc_i) : 0),
+      .din(wb_dat_i),
+      .dout(gpio_out)
+  );
 
   logic r_data_w;
   //register data to wishbone bus
